@@ -1,10 +1,6 @@
 package com.example.s07j2eetp.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -24,6 +20,16 @@ public class Student {
 
     @Column(name = "phone_no")
     private long phoneNo;
+
+    @ManyToOne
+    private Section section;
+
+    public Section getSection() {
+    	return this.section;
+    }
+    public void setSection(Section section) {
+    	this.section = section;
+    }
 
     public Student() {}
 

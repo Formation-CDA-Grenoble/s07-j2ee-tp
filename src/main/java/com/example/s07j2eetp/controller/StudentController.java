@@ -12,21 +12,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.s07j2eetp.entity.Student;
+import com.example.s07j2eetp.repository.SectionRepository;
 import com.example.s07j2eetp.repository.StudentRepository;
 
 @Controller
 @RequestMapping("/students/")
 public class StudentController {
 
-    private final StudentRepository studentRepository;
+    @Autowired
+    private SectionRepository sectionRepository;
 
+    private final StudentRepository studentRepository;
+    
     @Autowired
     public StudentController(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
     @GetMapping("signup")
-    public String showSignUpForm(Student student) {
+    public String showSignUpForm(Student student, Model model) {
+        model.addAttribute("sections", sectionRepository.findAll());
         return "add-student";
     }
 
@@ -51,6 +56,7 @@ public class StudentController {
         Student student = studentRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
         model.addAttribute("student", student);
+        model.addAttribute("sections", sectionRepository.findAll());
         return "update-student";
     }
 

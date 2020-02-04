@@ -1,5 +1,7 @@
 package com.example.s07j2eetp.entity;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,16 @@ public class Section {
 
     @Column(name = "grade")
     private int grade;
+
+    @OneToMany(mappedBy = "section")
+    private Set<Student> students;
+
+    public Set<Student> getStudents() {
+    	return this.students;
+    }
+    public void setStudents(Set<Student> students) {
+    	this.students = students;
+    }
 
     public int getGrade() {
     	return this.grade;
